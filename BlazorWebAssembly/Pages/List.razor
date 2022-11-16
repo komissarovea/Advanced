@@ -74,8 +74,7 @@
     {
         if (Http != null)
         {
-            HttpResponseMessage resp =
-            await Http.DeleteAsync($"/api/people/{p.PersonId}");
+            HttpResponseMessage resp = await Http.DeleteAsync($"/api/people/{p.PersonId}");
             if (resp.IsSuccessStatusCode)
             {
                 await UpdateData();
