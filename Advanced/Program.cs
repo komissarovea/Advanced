@@ -18,6 +18,17 @@ builder.Services.AddDbContext<DataContext>(opts =>
 builder.Services.AddDbContext<IdentityContext>(opts => opts.UseSqlServer(builder.Configuration["ConnectionStrings:IdentityConnection"]));
 builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<IdentityContext>();
 
+builder.Services.Configure<IdentityOptions>(opts => {
+    opts.Password.RequiredLength = 6;
+    opts.Password.RequireNonAlphanumeric = false;
+    opts.Password.RequireLowercase = false;
+    opts.Password.RequireUppercase = false;
+    opts.Password.RequireDigit = false;
+
+    opts.User.RequireUniqueEmail = true;
+    opts.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyz";
+});
+
 var app = builder.Build();
 
 app.UseStaticFiles();
