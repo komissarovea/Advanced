@@ -27,7 +27,7 @@ app.MapControllerRoute("controllers", "controllers/{controller=Home}/{action=Ind
 app.MapRazorPages();
 
 app.MapBlazorHub();
-app.MapFallbackToPage("/_Host");
+//app.MapFallbackToPage("/_Host");
 
 app.UseBlazorFrameworkFiles("/webassembly");
 app.MapFallbackToFile("/webassembly/{*path:nonfile}", "/webassembly/index.html");
