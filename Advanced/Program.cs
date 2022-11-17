@@ -31,6 +31,16 @@ builder.Services.Configure<IdentityOptions>(opts =>
     opts.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyz";
 });
 
+builder.Services.AddAuthentication(opts =>
+{
+    opts.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    opts.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+}).AddCookie(opts =>
+{
+    opts.Events.DisableRedirectForPath(e => e.OnRedirectToLogin, "/api", StatusCodes.Status401Unauthorized);
+    opts.Events.DisableRedirectForPath(e => e.OnRedirectToAccessDenied, "/api", StatusCodes.Status403Forbidden);
+});
+
 //builder.Services.Configure<CookieAuthenticationOptions>(IdentityConstants.ApplicationScheme, opts =>
 //{
 //    opts.LoginPath = "/Authenticate";
